@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/aerostyleLogo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="sports apparel, rebounders, men clothing, women clothing, athletic wear, sale">
+    <link rel="stylesheet" href="/index.css">
+    <title>Product Details - Aerostyle</title>
+</head>
+<body>
+    <nav class="container" id="navbar">
+        <div class="logo">Aerostyle</div>
+        <ul class="Menu">
+            <li class="linksHome"><a href="/index.html">Home</a></li>
+            <li class="linksMen"><a href="#men-section">Men</a></li>
+            <li class="linksWomen"><a href="#women-section">Women</a></li>
+            <li class="linksSale"><a href="/product.html">Product</a></li>
+        </ul>
+        <form class="searchform" id="search-form">
+            <div class="rStore"><i class="fas fa-store"></i><a href="/product.html" target="_blank">Our Store</a></div>
+            <div class="About"><i class="fas fa-info-circle"></i> <a href="/About.html" target="_blank">About</a></div>
+            <input type="text" id="search-input" placeholder="Search products..." aria-label="Search">
+            <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+            <div class="cart-icon" id="cart-icon"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></div>
+            <div class="user-icon" id="user-icon"><i class="fas fa-user"></i><span id="user-account"></span></div>
+        </form>
+    </nav>
+    <!--SHOW DETAILS-->
+    <section class="ShowDetails">
+        <div class="product-details">
+            <img id="product-image" src="" alt="Product Image">
+            <div class="product-info">
+                <h1 id="product-title"></h1>
+                <p id="product-description"></p>
+                <b id="product-price"></b>
+                <button class="btn-add-cart" onclick="addToCartFromDetails()">Add to Cart</button>
+                <button class="btn-back" onclick="goBack()">Back to Products</button>
+            </div>
+        </div>
+    </section>
+
+  <script>
+    // Global cart variable (persisted in localStorage)
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Update cart count in navbar
+    function updateCartCount() {
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) {
+            cartCount.textContent = cart.length;
+            cartCount.style.display = cart.length > 0 ? 'inline' : 'none';
+        }
+    }
+
+    // Add to Cart from Details page (reads from URL params) and redirect to cart
+    function addToCartFromDetails() {
+        console.log('addToCartFromDetails called');  // Debug log
+        // Get product data from URL parameters
+        const params = new URLSearchParams(window.location.search);
+        console.log('URL params:', params.toString());  // Debug log
+        const product = {
+            name: decodeURIComponent(params.get('title') || ''),
+            price: parseFloat(decodeURIComponent(params.get('price') || '0')),
+            image: decodeURIComponent(params.get('image') || ''),
+            description: decodeURIComponent(params.get('description') || '')
+        };
+        console.log('Parsed product:', product);  // Debug log
+        
+        if (product.name && product.price > 0) {
+            // Check if product already in cart
+            const existingIndex = cart.findIndex(item => item.name === product.name);
+            if (existingIndex > -1) {
+                cart[existingIndex].quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            console.log('Cart updated:', cart);  // Debug log
+            // Update navbar count
+            updateCartCount();
+            // Redirect to cart page (adjust path if needed)
+            window.location.href = 'cart.html';
+        } else {
+            console.error('Product data invalid:', product);  // Debug log
+            alert('Product details not found. Please go back and try again.');
+        }
+    }
+
+    // Go back to previous page
+    function goBack() {
+        window.history.back();
+    }
+
+    // Load product details on page load (from URL params)
+    function loadProductDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const title = decodeURIComponent(params.get('title') || '');
+        const price = decodeURIComponent(params.get('price') || '');
+        const image = decodeURIComponent(params.get('image') || '');
+        const description = decodeURIComponent(params.get('description') || '');
+        
+        document.getElementById('product-title').textContent = title;
+        document.getElementById('product-price').textContent = `₱${price}`;
+        document.getElementById('product-description').textContent = description;
+        document.getElementById('product-image').src = image;
+        console.log('Product details loaded:', { title, price, image, description });  // Debug log
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartCount();
+        loadProductDetails();
+    });
+</script>
+</body>
+</html>

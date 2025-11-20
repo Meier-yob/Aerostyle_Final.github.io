@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/images/aerostyleLogo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/index.css">  <!-- Assuming this is your general site CSS -->
+    <link rel="stylesheet" href="/cart.css">  <!-- Your provided cart CSS -->
+    <title>Cart - Aerostyle</title>
+</head>
+<body>
+    <nav class="container" id="navbar">
+        <div class="logo">Aerostyle</div>
+        <ul class="Menu">
+            <li class="linksHome"><a href="/index.html">Home</a></li>
+            <li class="linksMen"><a href="#men-section">Men</a></li>
+            <li class="linksWomen"><a href="#women-section">Women</a></li>
+            <li class="linksSale"><a href="/product.html">Product</a></li>
+        </ul>
+        <form class="searchform" id="search-form">
+            <div class="rStore"><i class="fas fa-store"></i><a href="/product.html" target="_blank">Our Store</a></div>
+            <div class="About"><i class="fas fa-info-circle"></i> <a href="/About.html" target="_blank">About</a></div>
+            <input type="text" id="search-input" placeholder="Search products..." aria-label="Search">
+            <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+            <div class="cart-icon" id="cart-icon" onclick="window.location.href='cart.html'"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></div>
+            <div class="user-icon" id="user-icon"><i class="fas fa-user"></i><span id="user-account"></span></div>
+        </form>
+    </nav>
+    <main class="cart-page">
+        <h1>Your Shopping Cart</h1>
+        <div id="cart-items" class="prod-container">
+            <!-- Items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            <h2>Total: ₱<span id="total-price">0</span></h2>
+            <button class="btn-checkout" onclick="checkout()">Checkout</button>
+            <button class="btn-back" onclick="window.location.href='/index.html'">Continue Shopping</button>
+        </div>
+    </main>
+    
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Checkout</h2>
+            <form id="checkout-form">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" required>
+                
+                <label for="address">Shipping Address:</label>
+                <textarea id="address" required></textarea>
+                
+                <label for="payment">Payment Method:</label>
+                <select id="payment" required>
+                    <option value="">Select Payment Method</option>
+                    <option value="cod">Cash on Delivery</option>
+                    <option value="card">Credit/Debit Card</option>
+                    <option value="gcash">GCash</option>
+                </select>
+                
+                <div id="card-details" style="display: none;">
+                    <label for="card-number">Card Number:</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456">
+                    
+                    <label for="expiry">Expiry Date:</label>
+                    <input type="text" id="expiry" placeholder="MM/YY">
+                    
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" placeholder="123">
+                </div>
+                
+                <button type="submit" class="btn-checkout">Complete Purchase</button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="col">
+            <div class="logo">Aerostyle</div><br>
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> ACT main campus</p>
+            <p><strong>Phone:</strong> +63 9277789168</p>
+            <p><strong>Email:</strong> Aerostyle@gmail.com</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-youtube"></i>
+                <i class="fab fa-pinterest"></i>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col-install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="/images/appstore.png" alt="App Store" loading="lazy">
+                <img src="/images/google app.png" alt="Google Play" loading="lazy">
+            </div>
+            <p>Secured Payment Gateway</p>
+            <div class="row-2">
+                <img class="gcash" src="/images/gcash-seeklogo.png" alt="GCash" loading="lazy">
+                <img src="/images/card.png" alt="Card" loading="lazy">
+                <img src="/images/visa.png" alt="Visa" loading="lazy">
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Embedded JavaScript for Cart Functionality -->
+    <script>
+        // Global cart variable (persisted in localStorage)
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Update cart count in navbar
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            if (cartCount) {
+                cartCount.textContent = cart.length;
+                cartCount.style.display = cart.length > 0 ? 'inline' : 'none';
+            }
+        }
+
+        // Display cart items (using your CSS classes for layout and spacing)
+        function displayCart() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            const totalPriceSpan = document.getElementById('total-price');
+            cartItemsDiv.innerHTML = '';
+            let total = 0;
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p>Your cart is empty. <a href="/index.html">Continue shopping</a>.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'cart-item';
+                    itemDiv.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <b>₱${item.price}</b>
+                        </div>
+                        <div class="cart-controls">
+                            <div class="quantity-controls">
+                                <button class="qty-btn minus-btn" onclick="changeQuantity(${index}, -1)">-</button>
+                                <span class="qty-display">${item.quantity}</span>
+                                <button class="qty-btn plus-btn" onclick="changeQuantity(${index}, 1)">+</button>
+                            </div>
+                            <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    `;
+                    cartItemsDiv.appendChild(itemDiv);
+                    total += item.price * item.quantity;
+                });
+            }
+            totalPriceSpan.textContent = total.toFixed(2);
+        }
+
+        // Change quantity (like Shopee: + and - buttons)
+        function changeQuantity(index, delta) {
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1); // Remove if quantity is 0
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            displayCart();
+        }
+
+        // Remove item from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            displayCart();
+        }
+
+        // Checkout function - opens modal
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            document.getElementById('checkout-modal').style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
+
+        // Handle checkout form submission
+        document.getElementById('checkout-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            const payment = document.getElementById('payment').value;
+            
+            if (!name || !email || !address || !payment) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Simulate payment processing
+            alert(`Thank you for your purchase, ${name}!\n\nOrder Details:\nTotal: ₱${document.getElementById('total-price').textContent}\nPayment Method: ${payment}\n\nYour order will be shipped to: ${address}\n\nA confirmation email has been sent to ${email}.`);
+            
+            // Clear cart
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            displayCart();
+            
+            // Close modal
+            closeModal();
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Show/hide card details based on payment method
+        document.getElementById('payment').addEventListener('change', function() {
+            const cardDetails = document.getElementById('card-details');
+            if (this.value === 'card') {
+                cardDetails.style.display = 'block';
+            } else {
+                cardDetails.style.display = 'none';
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            displayCart();
+        });
+    </script>
+</body>
+</html>

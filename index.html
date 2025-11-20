@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/aerostyleLogo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="sports apparel, rebounders, men clothing, women clothing, athletic wear, sale">
+    <link rel="stylesheet" href="/index.css">
+    <title>Aerostyle - Elevate Your Game</title>
+</head>
+<body>
+    
+    <!-- Navigation menu -->
+    <nav class="container" id="navbar">
+        <div class="logo">Aerostyle</div>
+        <ul class="Menu">
+            <li class="linksHome"><a href="#">Home</a></li>
+            <li class="linksMen"><a href="#men-section">Men</a></li>
+            <li class="linksWomen"><a href="#women-section">Women</a></li>
+            <li class="linksSale"><a href="/product.html">Product</a></li>
+        </ul>
+        <form class="searchform" id="search-form">
+            <div class="rStore"><i class="fas fa-store"></i><a href="/product.html" target="_blank">Our Store</a></div>
+            <div class="About"><i class="fas fa-info-circle"></i> <a href="/About.html" target="_blank">About</a></div>
+            <input type="text" id="search-input" placeholder="Search products..." aria-label="Search">
+            <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+            <div class="cart-icon" id="cart-icon"><i class="fas fa-shopping-cart"></i><span id="cart-count">0</span></div>
+            <div class="user-icon" id="user-icon"><i class="fas fa-user"></i><span id="user-account"></span></div>
+        </form>
+    </nav>
+
+    <main class="hero">
+        <div class="carousel" id="hero-carousel">
+            <div class="slide active" style="background: url(https://i.pinimg.com/1200x/a3/e2/f4/a3e2f45896b7155466c45c027b0ee440.jpg) center/cover;">
+               
+                <div class="text">
+                    <h1>The Limited <br>Edition Cloudchaser Kit <br>Has Arrived!</h1>
+                </div>
+                <div class="btns">
+                    <button class="btn" onclick="scrollToSection('#men-section')">Shop Men</button>
+                    <button class="btn" onclick="scrollToSection('#women-section')">Shop Women</button>
+                </div>
+            </div>
+            <div class="slide"  style="background: url(https://i.pinimg.com/1200x/27/3e/85/273e85d762881e1524ffd2f80cbb3ea8.jpg) center/cover;">
+                <div class="text">
+                    <h1>Winter Wonders <br>Collection</h1>
+                </div>
+                <div class="btns">
+                    <button class="btn" onclick="scrollToSection('#sale-section')">View Sale</button>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-indicators">
+            <span class="indicator active" onclick="changeSlide(0)"></span>
+            <span class="indicator" onclick="changeSlide(1)"></span>
+        </div>
+    </main>
+
+    <!-- Featured Categories -->
+    <main class="invisible">
+        <div class="container-cards">
+            <div class="cards" data-category="best-seller" style="background: url(https://i.pinimg.com/736x/d4/d1/c9/d4d1c92000f082af09b216b64fe5465e.jpg) center/cover;">
+                <button class="btn-cards">Best Seller</button>
+            </div>
+            <div class="cards" data-category="men" style="background: url(https://i.pinimg.com/1200x/23/95/6b/23956bd3a0e22d08168a83c1e66aa746.jpg) center/cover;">
+                <button class="btn-cards" >Best Men</button>
+            </div>
+            <div class="cards" data-category="women" style="background: url(https://i.pinimg.com/736x/c6/36/d7/c636d7b75fd87784c4401771698629d0.jpg) center/cover;">
+                <button class="btn-cards">Best Women</button>
+            </div>
+            <div class="cards" data-category="more" style="background: url(https://i.pinimg.com/1200x/2b/45/31/2b4531eac64579f11691dbfb94acce11.jpg) center/cover;">
+                <button class="btn-cards">More!</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Banner Section -->
+    <main class="container-Bcards">
+        <div class="container-show">
+            <div class="Bcards2">
+                <div class="Bcard-text">
+                    <h1>SPORTS WINDBREAKER</h1>
+                    <h4>Discover top-quality sports gear and apparel designed to elevate your performance and style—on and off the field.</h4>
+                </div>
+                <div class="Bcards-btns">
+                    <button class="Bcard-btn" onclick="scrollToSection('#men-section')">Shop Men</button>
+                    <button class="Bcard-btn" onclick="scrollToSection('#women-section')">Shop Women</button>
+                </div>
+            </div>
+            <div class="Bcards"></div>
+        </div>
+    </main>
+
+    <main id="grid-container">
+        <div class="parent">
+            <div class="div1" style="background: url(https://i.pinimg.com/1200x/8d/87/10/8d8710753e87374e24f15e48c889a6c6.jpg) center/cover;">
+                <h2>Limited <br>Outgoing Windbreaker</h2>
+                <button onclick="openModal('Windbreaker Details')">Learn More</button>
+            </div>
+            <div class="div2" style="background: url(https://i.pinimg.com/1200x/ff/b2/ee/ffb2ee2a1d171d7628304907c15d999c.jpg) center/cover;"></div>
+            <div class="div3" style="background:  url(https://i.pinimg.com/736x/6d/fd/b0/6dfdb0f19fed93de3f2c15429005f02c.jpg) center/cover;"></div>
+            <div class="div4" style="background: url(https://i.pinimg.com/1200x/62/69/84/62698437e1cd360610c1d216f992133b.jpg) center/cover;"></div>
+        </div>
+    </main>
+
+    <!-- New Arrivals -->
+    <main class="new-arrival" id="men-section">
+        <h1>New Arrivals - Men</h1>
+        <div class="prod-container" id="men-products">
+             <div class="pro" data-name="Black Windbreaker" data-price="599" data-image="https://i.pinimg.com/736x/ba/85/72/ba85721a6caea082d96243df77421d5c.jpg" data-description="A sleek black windbreaker for men, perfect for outdoor activities.">
+                <img src="https://i.pinimg.com/736x/ba/85/72/ba85721a6caea082d96243df77421d5c.jpg" alt="">
+                <h4>Black Windbreaker</h4>
+                <b>₱599</b><br>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><br>
+               
+             </div>
+             <div class="pro" data-name="Cool shift Windbreaker" data-price="399" data-image="https://i.pinimg.com/1200x/d2/6b/0a/d26b0a760359ed1f08fa6c0afe71a4ab.jpg" data-description="A cool shift windbreaker for versatile wear.">
+                <img src="https://i.pinimg.com/1200x/d2/6b/0a/d26b0a760359ed1f08fa6c0afe71a4ab.jpg" alt="">
+                <h4>Cool shift Windbreaker</h4>
+                <b>₱399</b><br>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><br>
+               
+             </div>
+             <div class="pro" data-name="The final Windbreaker" data-price="299" data-image="https://i.pinimg.com/1200x/bb/56/dc/bb56dcd288d0f49e98bb611a2ecc315e.jpg" data-description="The ultimate windbreaker for all-weather protection.">
+                <img src="https://i.pinimg.com/1200x/bb/56/dc/bb56dcd288d0f49e98bb611a2ecc315e.jpg" alt="">
+                <h4>The final Windbreaker</h4>
+                <b>₱299</b><br>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><br>
+               
+             </div>
+             <div class="pro" data-name="Hell nah Windbreaker" data-price="899" data-image="https://i.pinimg.com/1200x/ed/59/10/ed59109464176b5da822d96412744821.jpg" data-description="Bold and stylish windbreaker for the adventurous.">
+                <img src="https://i.pinimg.com/1200x/ed/59/10/ed59109464176b5da822d96412744821.jpg" alt="">
+                <h4>Hell nah Windbreaker</h4>
+                <b>₱899</b><br>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><br>
+               
+             </div>
+        </div>
+    </main>
+
+    <main class="new-arrival" id="women-section">
+        <h1>New Arrivals - Women</h1>
+        <div class="prod-container" id="women-products">
+              <div class="pro" data-name="Lady likes this Windbreaker" data-price="699" data-image="https://i.pinimg.com/736x/f6/e5/87/f6e58732d678de822b531e29966b0a88.jpg" data-description="A fashionable windbreaker loved by ladies.">
+                <img src="https://i.pinimg.com/736x/f6/e5/87/f6e58732d678de822b531e29966b0a88.jpg" alt="">
+                <h4>Lady likes this Windbreaker</h4>
+                <b>₱699</b><br>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><br>
+               
+             </div>
+             <div class="pro" data-name="mty" data-price="399" data-image="https://i.pinimg.com/1200x/c4/3a/46/c43a460e52c30cbce42b0a8eae94d969.jpg" data-description="Stylish and comfortable windbreaker.">
+                <img src="https://i.pinimg.com/1200x/c4/3a/46/c43a460e52c30cbce42b0a8eae94d969.jpg" alt="">
+                <h4>mty</h4>
+                <b>₱399</b><br>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><br>
+               
+             </div>
+             <div class="pro" data-name="Face the wind" data-price="599" data-image="https://i.pinimg.com/736x/48/80/fe/4880fe04090a2bcb4d3266617c381f41.jpg" data-description="Face the elements with this durable windbreaker.">
+                <img src="https://i.pinimg.com/736x/48/80/fe/4880fe04090a2bcb4d3266617c381f41.jpg" alt="">
+                <h4>Face the wind</h4>
+                <b>₱599</b><br>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><br>
+               
+             </div>
+             <div class="pro" data-name="Cool off" data-price="499" data-image="https://i.pinimg.com/1200x/77/a1/5b/77a15b53048db38968a29baf78797caa.jpg" data-description="Cool off in style with this windbreaker.">
+                <img src="https://i.pinimg.com/1200x/77/a1/5b/77a15b53048db38968a29baf78797caa.jpg" alt="">
+                <h4>Cool off</h4>
+                <b>₱499</b><br>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><br>
+               
+             </div>
+        </div>
+    </main>
+
+    <!-- Sale Section -->
+    <main id="banner1" id="sale-section">
+        <div class="banner-box">
+            <h2>BEST SALE</h2>
+            <h3>Best Collection -50% OFF</h3>
+        </div>
+        <div class="banner-box">
+            <h2>WINTER SALE</h2>
+            <h3>Winter Collection -50% OFF</h3>
+        </div>
+        <div class="banner-box">
+            <h2>SUMMER SALE</h2>
+            <h3>Summer Collection -50% OFF</h3>
+        </div>
+    </main>
+
+    <!-- Newsletter -->
+    <main class="newsletter">
+        <h2>Subscribe to Our Newsletter</h2>
+        <form id="newsletter-form">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="col">
+            <div class="logo">Aerostyle</div><br>
+            <h4>Contact</h4>
+            <p><strong>Address:</strong> ACT main campus</p>
+            <p><strong>Phone:</strong> +63 9277789168</p>
+            <p><strong>Email:</strong> Aerostyle@gmail.com</p>
+            <div class="follow">
+                <h4>Follow Us</h4>
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-youtube"></i>
+                <i class="fab fa-pinterest"></i>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="col-install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="row">
+                <img src="/appstore.png" alt="App Store" loading="lazy">
+                <img src="/google app.png" alt="Google Play" loading="lazy">
+            </div>
+            <p>Secured Payment Gateway</p>
+            <div class="row-2">
+                <img class="gcash" src="/gcash-seeklogo.png" alt="GCash" loading="lazy">
+                <img src="/card.png" alt="Card" loading="lazy">
+                <img src="/visa.png" alt="Visa" loading="lazy">
+            </div>
+        </div>
+    </footer>
+    <div class="copyright">
+        <p>&copy; 2025, Aerostyle - Elevate Your Game</p>
+    </div>
+
+
+    <!-- Modal for Product Details -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modal-title">Product Details</h2>
+            <p id="modal-description">More info coming soon!</p>
+        </div>
+    </div>
+    
+</section>
+    <script src="/js/index.js"></script>
+</body>
+</html>
